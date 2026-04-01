@@ -5,18 +5,25 @@ const cors = require('cors');
 // Load DB initialization (creates tables if needed)
 require('./db/init');
 
+// Define app
 const app = express();
 const PORT = 4000;
-const jobsRoutes = require('./routes/jobs');
 
 // Middleware-Enables CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
 
-// Job endpoint registration
+// Routes
+const settingsRoutes = require("./routes/settings");
+app.use("/settings", settingsRoutes);
+
+const jobsRoutes = require('./routes/jobs');
 app.use('/jobs', jobsRoutes);
 
-// Simple test route
+const compareRoutes = require("./routes/compare");
+app.use("/compare", compareRoutes);
+
+// Test route
 app.get('/', (req, res) => {
   res.json({ message: 'JobCompare backend is running' });
 });
