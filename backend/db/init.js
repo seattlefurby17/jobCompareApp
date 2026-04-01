@@ -27,7 +27,7 @@ db.run(`
     bonus_weight INTEGER DEFAULT 1,
     stock_weight INTEGER DEFAULT 1,
     wellness_weight INTEGER DEFAULT 1,
-    life_weight INTEGER DEFAULT 1,
+    lifeInsurance_weight INTEGER DEFAULT 1,
     pdf_weight INTEGER DEFAULT 1
   )
 `, () => {
@@ -40,7 +40,7 @@ db.run(`
 
     if (row.count === 0) {
       db.run(`
-        INSERT INTO settings (salary_weight, bonus_weight, stock_weight, wellness_weight, life_weight, pdf_weight)
+        INSERT INTO settings (salary_weight, bonus_weight, stock_weight, wellness_weight, lifeInsurance_weight, pdf_weight)
         VALUES (1, 1, 1, 1, 1, 1)
       `);
       console.log('Inserted default settings row.');
