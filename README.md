@@ -28,6 +28,9 @@ server.js`
 
 ---
 
+## 🏗️ Architecture Diagram
+    * Simplified Web Architecture
+
 ## 📦 Setup
 
 ```bash
@@ -50,16 +53,27 @@ PUT /settings — update settings (coming soon)
 ## 🗄 Database
 On first run, the backend:
 
-Creates jobs and settings tables
+Creates `jobs` and `settings` tables
 
-Inserts default settings
+Inserts default comparison settings
 
-🛠 Workflow
-main holds stable code
+SQLite file: `backend/db/jobcompare.db`
+
+## 🐞 Debugging Notes (Development Learnings)
+During development, I resolved two subtle backend issues:
+
+Stale Thunder Client payload that continued sending outdated request bodies
+
+SQLite path mismatch where the backend was reading from a different database file than intended
+
+These helped refine my understanding of asynchronous requests, routing, and end‑to‑end debugging.
+
+## 🛠 Workflow
+`main` holds stable code
 
 New work goes on feature branches like:
 
-feature/get-jobs
+feature/backend-crud
 
 feature/settings
 
