@@ -30,6 +30,8 @@ server.js`
 
 ## 🏗️ Architecture Diagram
     * Simplified Web Architecture
+    ![Architecture Diagram](./images/JobCompareWebAppUML.png)
+
 
 ## 📦 Setup
 
