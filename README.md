@@ -13,10 +13,32 @@ A lightweight tool for comparing job offers using customizable scoring weights. 
 ---
 
 ## 🗂 Project Structure
-`backend/
-db/
-routes/
-server.js`
+
+```
+backend/
+  controllers/
+    jobsController.js
+  db/
+    db.js
+    init.js
+    jobcompare.db
+  routes/
+    compare.js
+    jobs.js
+    settings.js
+  server.js
+
+frontend/
+  (coming soon)
+
+images/
+  JobCompare_UML.png
+  DataModel_Diagram.png
+
+.gitignore
+README.md
+```
+
 
 ---
 
@@ -29,8 +51,13 @@ server.js`
 ---
 
 ## 🏗️ Architecture Diagram
-    * Simplified Web Architecture
-    ![Architecture Diagram](./images/JobCompareWebAppUML.png)
+    * Simplified Backend Architecture
+
+    ![Backend Architecture Diagram](images/BackendArchitecture_Diagram.png)
+
+    * Data Structure
+
+    ![Domain Model Diagram](images/DataModel_Diagram.png)
 
 
 ## 📦 Setup
