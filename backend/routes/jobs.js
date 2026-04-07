@@ -1,57 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const jobsController = require('../controllers/jobsController');
-const db = require("../db/db");
+const jobsController = require("../controllers/jobsController");
 
-// POST/jobs
-router.post('/', jobsController.createJob);
+// CREATE a job
+router.post("/", jobsController.createJob);
 
-// GET/jobs
-router.get("/", (req, res) => {
-  const sql = "SELECT * FROM jobs";
+// READ all jobs
+router.get("/", jobsController.getAllJobs);
 
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(rows);
-  });
-});
+// READ one job by ID
+router.get("/:id", jobsController.getJobById);
 
-router.put("/", (req, res) => {
-  const {
-    salary_weight,
-    bonus_weight,
-    stock_weight,
-    wellness_weight,
-    lifeInsurance_weight,
-    pdf_weight
-  } = req.body;
+// UPDATE a job by ID
+router.put("/:id", jobsController.updateJob);
 
-  const sql = `
-    UPDATE settings
-    SET salary_weight = ?, bonus_weight = ?, stock_weight = ?,
-        wellness_weight = ?, lifeInsurance_weight = ?, pdf_weight = ?
-    WHERE id = 1
-  `;
+// DELETE a job by ID
+router.delete("/:id", jobsController.deleteJob);
 
-  const params = [
-    salary_weight,
-    bonus_weight,
-    stock_weight,
-    wellness_weight,
-    lifeInsurance_weight,
-    pdf_weight
-  ];
-
-  db.run(sql, params, function (err) {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-
-    res.json({ updated: this.changes });
-  });
-});
-
-// Export router
 module.exports = router;

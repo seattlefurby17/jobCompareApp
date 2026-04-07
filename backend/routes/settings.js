@@ -1,54 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db/db");
+const settingsController = require("../controllers/settingsController");
 
-// GET /settings
-router.get("/", (req, res) => {
-  const sql = "SELECT * FROM settings LIMIT 1";
+// READ settings (only one row)
+router.get("/", settingsController.getSettings);
 
-  db.get(sql, [], (err, row) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(row);
-  });
-});
-
-// PUT /settings
-router.put("/", (req, res) => {
-  // camelCase from frontend
-  const {
-    salaryWeight,
-    bonusWeight,
-    stockWeight,
-    wellnessWeight,
-    lifeInsuranceWeight,
-    pdfWeight
-  } = req.body;
-
-  // snake_case for DB
-  const sql = `
-    UPDATE settings
-    SET salary_weight = ?, bonus_weight = ?, stock_weight = ?,
-        wellness_weight = ?, lifeInsurance_weight = ?, pdf_weight = ?
-    WHERE id = 1
-  `;
-
-  const params = [
-    salaryWeight,
-    bonusWeight,
-    stockWeight,
-    wellnessWeight,
-    lifeInsuranceWeight,
-    pdfWeight
-  ];
-
-  db.run(sql, params, function (err) {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json({ updated: this.changes });
-  });
-});
+// UPDATE settings (update the single row)
+router.put("/", settingsController.updateSettings);
 
 module.exports = router;
