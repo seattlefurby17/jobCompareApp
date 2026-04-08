@@ -146,3 +146,15 @@ body.dark button.secondary {
     grid-template-columns: 1fr;
   }
 }
+
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  color: var(--brand-text-muted);
+  font-size: 0.9rem;
+}
+
+body.dark .footer {
+  color: var(--brand-text-muted-dark);
+}

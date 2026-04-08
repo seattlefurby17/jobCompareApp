@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import "./JobsListPage.css";
 
 export default function JobsListPage() {
@@ -115,6 +116,7 @@ export default function JobsListPage() {
           </ul>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

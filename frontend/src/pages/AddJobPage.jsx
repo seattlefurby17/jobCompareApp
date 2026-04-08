@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import "./AddJobPage.css";
-
 
 export default function AddJobPage() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [job, setJob] = useState({
     title: "",
     company: "",
     city: "",
@@ -18,11 +18,13 @@ export default function AddJobPage() {
     stock_options: "",
     wellness_stipend: "",
     life_insurance: "",
-    personal_dev_fund: ""
+    personal_dev_fund: "",
+    is_current_job: 0
   });
 
   function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setJob(prev => ({ ...prev, [name]: value }));
   }
 
   function handleSubmit(e) {
@@ -31,7 +33,7 @@ export default function AddJobPage() {
     fetch("http://localhost:4000/jobs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(job)
     })
       .then(res => res.json())
       .then(() => navigate("/jobs"))
@@ -46,91 +48,99 @@ export default function AddJobPage() {
         <div className="card">
           <h1>Add New Job</h1>
 
-          <form onSubmit={handleSubmit} style={{ marginTop: "1.5rem" }}>
-            <div className="two-col" style={{ gap: "2rem" }}>
-              
-              <div className="form-col">
-                <label>Job Title</label>
-                <input name="title" value={formData.title} onChange={handleChange} />
+          <form onSubmit={handleSubmit} className="two-col addjob-form">
 
-                <label>Company</label>
-                <input name="company" value={formData.company} onChange={handleChange} />
+            {/* LOCATION */}
+            <h2 className="section-header">Location</h2>
+            <hr className="divider" />
 
-                <label>City</label>
-                <input name="city" value={formData.city} onChange={handleChange} />
+            <label>Job Title</label>
+            <input name="title" value={job.title} onChange={handleChange} />
 
-                <label>State</label>
-                <input name="state" value={formData.state} onChange={handleChange} />
+            <label>Company</label>
+            <input name="company" value={job.company} onChange={handleChange} />
 
-                <label>Cost of Living Index</label>
-                <input
-                  type="number"
-                  name="cost_of_living_index"
-                  value={formData.cost_of_living_index}
-                  onChange={handleChange}
-                />
-              </div>
+            <label>City</label>
+            <input name="city" value={job.city} onChange={handleChange} />
 
-              <div className="form-col">
-                <label>Salary</label>
-                <input
-                  type="number"
-                  name="salary"
-                  value={formData.salary}
-                  onChange={handleChange}
-                />
+            <label>State</label>
+            <input name="state" value={job.state} onChange={handleChange} />
 
-                <label>Bonus</label>
-                <input
-                  type="number"
-                  name="bonus"
-                  value={formData.bonus}
-                  onChange={handleChange}
-                />
+            <label>Cost of Living Index</label>
+            <input
+              name="cost_of_living_index"
+              value={job.cost_of_living_index}
+              onChange={handleChange}
+            />
 
-                <label>Stock Options</label>
-                <input
-                  type="number"
-                  name="stock_options"
-                  value={formData.stock_options}
-                  onChange={handleChange}
-                />
+            {/* COMPENSATION */}
+            <h2 className="section-header">Compensation</h2>
+            <hr className="divider" />
 
-                <label>Wellness Stipend</label>
-                <input
-                  type="number"
-                  name="wellness_stipend"
-                  value={formData.wellness_stipend}
-                  onChange={handleChange}
-                />
+            <label>Salary</label>
+            <input name="salary" value={job.salary} onChange={handleChange} />
 
-                <label>Life Insurance</label>
-                <input
-                  type="number"
-                  name="life_insurance"
-                  value={formData.life_insurance}
-                  onChange={handleChange}
-                />
+            <label>Bonus</label>
+            <input name="bonus" value={job.bonus} onChange={handleChange} />
 
-                <label>Personal Dev Fund</label>
-                <input
-                  type="number"
-                  name="personal_dev_fund"
-                  value={formData.personal_dev_fund}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+            <label>Stock Options</label>
+            <input
+              name="stock_options"
+              value={job.stock_options}
+              onChange={handleChange}
+            />
 
-            <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
-              <button type="submit" className="primary">Save Job</button>
+            {/* BENEFITS */}
+            <h2 className="section-header">Benefits</h2>
+            <hr className="divider" />
+
+            <label>Wellness Stipend</label>
+            <input
+              name="wellness_stipend"
+              value={job.wellness_stipend}
+              onChange={handleChange}
+            />
+
+            <label>Life Insurance</label>
+            <input
+              name="life_insurance"
+              value={job.life_insurance}
+              onChange={handleChange}
+            />
+
+            <label>Personal Development Fund</label>
+            <input
+              name="personal_dev_fund"
+              value={job.personal_dev_fund}
+              onChange={handleChange}
+            />
+
+            {/* OTHER */}
+            <h2 className="section-header">Other</h2>
+            <hr className="divider" />
+
+            <label>Is Current Job</label>
+            <select
+              name="is_current_job"
+              value={job.is_current_job}
+              onChange={handleChange}
+            >
+              <option value={0}>No</option>
+              <option value={1}>Yes</option>
+            </select>
+
+            <div className="addjob-buttons">
+              <button type="submit" className="primary">Add Job</button>
               <button type="button" className="secondary" onClick={() => navigate("/jobs")}>
                 Cancel
               </button>
             </div>
+
           </form>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }

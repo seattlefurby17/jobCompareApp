@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
@@ -95,6 +96,7 @@ export default function SettingsPage() {
           {saved && <p className="success-text">Settings saved!</p>}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
