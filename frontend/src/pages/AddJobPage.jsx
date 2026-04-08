@@ -50,7 +50,19 @@ export default function AddJobPage() {
           </div>
         ))}
 
-        <button type="submit">Save Job</button>
+        <div style={{ marginTop: "1rem" }}>
+          <button type="submit" style={{ marginRight: "1rem" }}>
+            Save Job
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate("/jobs")}
+            style={{ background: "#ccc" }}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
