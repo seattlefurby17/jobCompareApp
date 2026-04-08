@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import NavBar from "../components/NavBar";
+import "./SettingsPage.css";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState(null);
@@ -12,7 +14,14 @@ export default function SettingsPage() {
       .catch(err => console.error("Error fetching settings:", err));
   }, []);
 
-  if (!settings) return <p>Loading settings...</p>;
+  if (!settings) return (
+    <>
+      <NavBar />
+      <div className="page">
+        <p>Loading settings...</p>
+      </div>
+    </>
+  );
 
   const handleChange = (field, value) => {
     setSettings(prev => ({ ...prev, [field]: Number(value) }));
@@ -39,37 +48,41 @@ export default function SettingsPage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Settings</h1>
-      <p>Adjust the weights used when comparing jobs.</p>
+    <>
+      <NavBar />
 
-      <div style={{ maxWidth: "400px" }}>
-        {Object.keys(settings).map(key => (
-          key !== "id" && (
-            <div key={key} style={{ marginBottom: "1rem" }}>
-              <label>
-                <strong>{key.replace("_", " ")}:</strong>
-                <input
-                  type="number"
-                  value={settings[key]}
-                  onChange={e => handleChange(key, e.target.value)}
-                  style={{ marginLeft: "0.5rem", width: "80px" }}
-                />
-              </label>
-            </div>
-          )
-        ))}
+      <div className="page">
+        <div className="card">
+          <h1>Settings</h1>
+          <p>Adjust the weights used when comparing jobs.</p>
+
+          <div className="settings-grid">
+            {Object.keys(settings).map(key =>
+              key !== "id" && (
+                <div key={key} className="settings-row">
+                  <label>{key.replace(/_/g, " ")}</label>
+                  <input
+                    type="number"
+                    value={settings[key]}
+                    onChange={e => handleChange(key, e.target.value)}
+                  />
+                </div>
+              )
+            )}
+          </div>
+
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="primary"
+            style={{ marginTop: "1.5rem" }}
+          >
+            {saving ? "Saving..." : "Save Settings"}
+          </button>
+
+          {saved && <p className="success-text">Settings saved!</p>}
+        </div>
       </div>
-
-      <button
-        onClick={handleSave}
-        disabled={saving}
-        style={{ padding: "0.5rem 1rem" }}
-      >
-        {saving ? "Saving..." : "Save Settings"}
-      </button>
-
-      {saved && <p style={{ color: "green" }}>Settings saved!</p>}
-    </div>
+    </>
   );
 }

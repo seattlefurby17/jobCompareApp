@@ -1,0 +1,35 @@
+.navbar {
+  background: var(--brand-card);
+  border-bottom: 1px solid var(--brand-border);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px var(--brand-shadow);
+}
+
+.navbar a {
+  margin-right: 1.5rem;
+  text-decoration: none;
+  color: var(--brand-text);
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: var(--brand-primary);
+}
+
+.navbar .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+body.dark .navbar {
+  background: var(--brand-card-dark);
+  border-bottom-color: var(--brand-border-dark);
+}
+
+body.dark .navbar a {
+  color: var(--brand-text-dark);
+}

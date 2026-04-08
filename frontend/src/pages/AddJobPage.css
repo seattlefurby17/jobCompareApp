@@ -1,0 +1,13 @@
+.form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-col label {
+  font-weight: 500;
+}
+
+.form-col input {
+  margin-top: 0.25rem;
+}
