@@ -66,6 +66,10 @@ export default function JobsListPage() {
               <li key={job.id} className="job-card">
                 <div className="job-header">
                   <strong>{job.title}</strong> — {job.company}
+                  {job.is_current_job == 1 && (
+                    <span className="current-job-badge">Current Job</span>
+            )}
+
                 </div>
 
                 <div className="job-buttons">
