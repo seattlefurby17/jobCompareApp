@@ -1,5 +1,6 @@
 const db = require("../db/db");
 
+// Score calculation helper
 function calculateScore(job, settings) {
   return (
     (job.salary || 0) * settings.salary_weight +
@@ -12,42 +13,46 @@ function calculateScore(job, settings) {
 }
 
 exports.compareJobs = (req, res) => {
-  const { jobIds } = req.body;
+  const { job1_id, job2_id } = req.body;
 
-  if (!jobIds || !Array.isArray(jobIds) || jobIds.length < 2) {
-    return res.status(400).json({
-      error: "jobIds must be an array of at least two job IDs"
-    });
+  // Validate request
+  if (!job1_id || !job2_id) {
+    return res.status(400).json({ error: "Two job IDs required" });
   }
 
-  const placeholders = jobIds.map(() => "?").join(",");
-  const jobSql = `SELECT * FROM jobs WHERE id IN (${placeholders})`;
+  const jobSql = "SELECT * FROM jobs WHERE id = ?";
   const settingsSql = "SELECT * FROM settings LIMIT 1";
 
+  // Fetch settings first
   db.get(settingsSql, [], (err, settings) => {
     if (err) return res.status(500).json({ error: err.message });
 
-    db.all(jobSql, jobIds, (err, rows) => {
+    // Fetch Job 1
+    db.get(jobSql, [job1_id], (err, job1) => {
       if (err) return res.status(500).json({ error: err.message });
+      if (!job1) return res.status(404).json({ error: "Job 1 not found" });
 
-      if (rows.length !== jobIds.length) {
-        return res.status(404).json({
-          error: "One or more jobs not found"
+      // Fetch Job 2
+      db.get(jobSql, [job2_id], (err, job2) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!job2) return res.status(404).json({ error: "Job 2 not found" });
+
+        // Score both jobs
+        const score1 = calculateScore(job1, settings);
+        const score2 = calculateScore(job2, settings);
+
+        job1.score = score1;
+        job2.score = score2;
+
+        // Determine winner
+        const winner = score1 >= score2 ? job1.id : job2.id;
+
+        // Send clean response
+        res.json({
+          winner,
+          job1,
+          job2
         });
-      }
-
-      const scored = rows.map(job => ({
-        ...job,
-        score: calculateScore(job, settings)
-      }));
-
-      scored.sort((a, b) => b.score - a.score);
-
-      const higherValueJob = scored[0].id;
-
-      res.json({
-        higher_value_job: higherValueJob,
-        results: scored
       });
     });
   });
