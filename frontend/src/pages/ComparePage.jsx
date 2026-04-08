@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ComparePage() {
   const [jobs, setJobs] = useState([]);
@@ -6,6 +7,8 @@ export default function ComparePage() {
   const [job2, setJob2] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();   // ⭐ Added
 
   // Fetch all jobs
   useEffect(() => {
@@ -79,7 +82,18 @@ export default function ComparePage() {
           ))}
         </select>
 
-        <button type="submit">Compare</button>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <button type="submit">Compare</button>
+
+          {/* ⭐ Cancel button */}
+          <button
+            type="button"
+            onClick={() => navigate("/jobs")}
+            style={{ background: "#ccc" }}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
 
       {/* Loading */}
