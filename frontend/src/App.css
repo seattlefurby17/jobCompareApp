@@ -62,8 +62,19 @@ body.dark .card {
   box-shadow: 0 4px 12px var(--brand-shadow-dark);
 }
 
-/* HEADERS */
-h1, h2, h3 {
+/* HEADERS — GLOBAL FIX */
+h1 {
+  color: #0f172a; /* deep slate for strong contrast */
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+body.dark h1 {
+  color: var(--brand-text-dark);
+}
+
+h2, h3 {
   font-weight: 600;
   margin-bottom: 1rem;
 }

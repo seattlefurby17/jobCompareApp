@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import "./SettingsPage.css";
 
@@ -6,6 +7,7 @@ export default function SettingsPage() {
   const [settings, setSettings] = useState(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:4000/settings")
@@ -14,14 +16,16 @@ export default function SettingsPage() {
       .catch(err => console.error("Error fetching settings:", err));
   }, []);
 
-  if (!settings) return (
-    <>
-      <NavBar />
-      <div className="page">
-        <p>Loading settings...</p>
-      </div>
-    </>
-  );
+  if (!settings) {
+    return (
+      <>
+        <NavBar />
+        <div className="page">
+          <p>Loading settings...</p>
+        </div>
+      </>
+    );
+  }
 
   const handleChange = (field, value) => {
     setSettings(prev => ({ ...prev, [field]: Number(value) }));
@@ -71,14 +75,22 @@ export default function SettingsPage() {
             )}
           </div>
 
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="primary"
-            style={{ marginTop: "1.5rem" }}
-          >
-            {saving ? "Saving..." : "Save Settings"}
-          </button>
+          <div className="settings-buttons">
+            <button
+              className="primary"
+              onClick={handleSave}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Settings"}
+            </button>
+
+            <button
+              className="secondary"
+              onClick={() => navigate("/")}
+            >
+              Cancel
+            </button>
+          </div>
 
           {saved && <p className="success-text">Settings saved!</p>}
         </div>

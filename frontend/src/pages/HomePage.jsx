@@ -14,9 +14,9 @@ export default function HomePage() {
         <div className="card two-col">
           <div>
             <h1>JobCompare</h1>
-            <p>
-              Compare job offers, adjust scoring weights, and manage your job list.
-            </p>
+              <p className="home-subtitle">
+                Compare job offers, adjust scoring weights, and manage your job list.
+              </p>
           </div>
 
           <div className="button-stack">

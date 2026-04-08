@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import "./JobsListPage.css";
 
 export default function JobsListPage() {
   const [jobs, setJobs] = useState([]);
@@ -27,91 +29,92 @@ export default function JobsListPage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Job List</h1>
+    <>
+      <NavBar />
 
-      <div style={{ marginBottom: "1rem" }}>
-        <button onClick={() => navigate("/")}>Back to Home</button>
-        <button onClick={() => navigate("/add")} style={{ marginLeft: "1rem" }}>
-          Add Job
-        </button>
-      </div>
+      <div className="page">
+        <div className="card">
+          <h1>Job List</h1>
 
-      <button
-        onClick={() => navigate("/compare")}
-        disabled={!canCompare}
-        style={{
-          marginBottom: "1rem",
-          padding: "0.5rem 1rem",
-          cursor: canCompare ? "pointer" : "not-allowed",
-          opacity: canCompare ? 1 : 0.5
-        }}
-      >
-        Compare Jobs
-      </button>
+          <div className="jobs-actions">
+            <button className="secondary" onClick={() => navigate("/")}>
+              Back to Home
+            </button>
 
-      {!canCompare && (
-        <p style={{ color: "gray", marginTop: "-0.5rem" }}>
-          Add at least 2 jobs to compare.
-        </p>
-      )}
-
-      {jobs.length === 0 && <p>No jobs found.</p>}
-
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {jobs.map(job => (
-          <li
-            key={job.id}
-            style={{
-              marginBottom: "1rem",
-              padding: "1rem",
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              background: "#fafafa"
-            }}
-          >
-            <strong>{job.title}</strong> — {job.company}
-            <br />
-
-            <button
-              style={{ marginTop: "0.5rem", marginRight: "0.5rem" }}
-              onClick={() => navigate(`/edit/${job.id}`)}
-            >
-              Edit
+            <button className="secondary" onClick={() => navigate("/add")}>
+              Add Job
             </button>
 
             <button
-              style={{ marginTop: "0.5rem", marginRight: "0.5rem" }}
+              className="secondary"
               disabled={!canCompare}
-              onClick={() => navigate(`/compare?job1=${job.id}`)}
+              onClick={() => navigate("/compare")}
             >
-              Compare
+              Compare Jobs
             </button>
+          </div>
 
-            <button
-              style={{ marginTop: "0.5rem", background: "red", color: "white" }}
-              onClick={() => setConfirmDelete(job.id)}
-            >
-              Delete
-            </button>
+          {!canCompare && (
+            <p className="muted-text">Add at least 2 jobs to compare.</p>
+          )}
 
-            {confirmDelete === job.id && (
-              <div style={{ marginTop: "0.5rem", color: "red" }}>
-                <p>Are you sure you want to delete this job?</p>
-                <button
-                  onClick={() => handleDelete(job.id)}
-                  style={{ marginRight: "0.5rem" }}
-                >
-                  Yes, delete
-                </button>
-                <button onClick={() => setConfirmDelete(null)}>
-                  Cancel
-                </button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+          {jobs.length === 0 && <p>No jobs found.</p>}
+
+          <ul className="jobs-list">
+            {jobs.map(job => (
+              <li key={job.id} className="job-card">
+                <div className="job-header">
+                  <strong>{job.title}</strong> — {job.company}
+                </div>
+
+                <div className="job-buttons">
+                  <button
+                    className="secondary"
+                    onClick={() => navigate(`/edit/${job.id}`)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="secondary"
+                    disabled={!canCompare}
+                    onClick={() => navigate(`/compare?job1=${job.id}`)}
+                  >
+                    Compare
+                  </button>
+
+                  <button
+                    className="danger"
+                    onClick={() => setConfirmDelete(job.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+
+                {confirmDelete === job.id && (
+                  <div className="delete-confirm">
+                    <p>Are you sure you want to delete this job?</p>
+
+                    <button
+                      className="danger"
+                      onClick={() => handleDelete(job.id)}
+                    >
+                      Yes, delete
+                    </button>
+
+                    <button
+                      className="secondary"
+                      onClick={() => setConfirmDelete(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 }
