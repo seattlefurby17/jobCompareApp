@@ -24,7 +24,12 @@ export default function AddJobPage() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setJob(prev => ({ ...prev, [name]: value }));
+
+    // Convert is_current_job to a number
+    const processedValue =
+      name === "is_current_job" ? Number(value) : value;
+
+    setJob(prev => ({ ...prev, [name]: processedValue }));
   }
 
   function handleSubmit(e) {
