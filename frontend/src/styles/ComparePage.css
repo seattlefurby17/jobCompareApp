@@ -1,0 +1,107 @@
+/* -------------------------------------------------- */
+/* ⭐ PAGE LAYOUT */
+/* -------------------------------------------------- */
+
+.compare-selectors {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.compare-selectors select {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: #ffffff;
+  color: #0f172a;
+  min-width: 180px;
+}
+
+.compare-selectors select:focus {
+  outline: 2px solid #3b82f6;
+}
+
+/* Dark mode */
+.dark .compare-selectors select {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* -------------------------------------------------- */
+/* ⭐ COMPARISON GRID */
+/* -------------------------------------------------- */
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.comparison-column {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.comparison-column h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  color: #0f172a;
+}
+
+.comparison-column p {
+  margin: 0.35rem 0;
+  color: #334155;
+}
+
+/* Dark mode */
+.dark .comparison-column {
+  background: #1e293b;
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+.dark .comparison-column h2 {
+  color: #f1f5f9;
+}
+
+.dark .comparison-column p {
+  color: #cbd5e1;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ MUTED TEXT */
+/* -------------------------------------------------- */
+
+.muted-text {
+  text-align: center;
+  color: #64748b;
+  margin-top: 1rem;
+}
+
+/* Dark mode */
+.dark .muted-text {
+  color: #94a3b8;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ RESPONSIVE */
+/* -------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .compare-selectors {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import "./SettingsPage.css";
+import "../styles/JobForm.css";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState(null);
@@ -61,10 +61,11 @@ export default function SettingsPage() {
           <h1>Settings</h1>
           <p>Adjust the weights used when comparing jobs.</p>
 
-          <div className="settings-grid">
+          {/* ⭐ Uses the same grid as Add/Edit Job */}
+          <div className="form-grid">
             {Object.keys(settings).map(key =>
               key !== "id" && (
-                <div key={key} className="settings-row">
+                <div key={key} className="form-row">
                   <label>{key.replace(/_/g, " ")}</label>
                   <input
                     type="number"
@@ -76,7 +77,8 @@ export default function SettingsPage() {
             )}
           </div>
 
-          <div className="settings-buttons">
+          {/* ⭐ Uses the same button layout as Add/Edit Job */}
+          <div className="form-buttons">
             <button
               className="primary"
               onClick={handleSave}
@@ -96,6 +98,7 @@ export default function SettingsPage() {
           {saved && <p className="success-text">Settings saved!</p>}
         </div>
       </div>
+
       <Footer />
     </>
   );
