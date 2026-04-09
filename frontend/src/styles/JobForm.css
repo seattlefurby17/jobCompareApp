@@ -1,91 +1,124 @@
-/* Page layout */
+/* -------------------------------------------------- */
+/* ⭐ PAGE LAYOUT */
+/* -------------------------------------------------- */
+
 .page {
   display: flex;
   justify-content: center;
   padding: 1.5rem 0;
+  background: linear-gradient(to bottom, #f8fafc, #ffffff);
 }
 
-/* Card container */
+/* -------------------------------------------------- */
+/* ⭐ CARD */
+/* -------------------------------------------------- */
+
 .card {
-  background: var(--card-bg);
-  padding: 1.25rem 1.5rem; /* compact */
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
   border-radius: 8px;
-  box-shadow: var(--card-shadow);
+
+  /* subtle accent */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+
   width: 100%;
   max-width: 900px;
 }
 
-/* Page title */
 .card h1 {
-  margin-top: 0.25rem;     /* reduced */
-  margin-bottom: 0.75rem;  /* reduced */
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   font-size: 1.4rem;
   font-weight: 600;
+  color: #0f172a;
 }
 
-/* Two-column grid */
+/* -------------------------------------------------- */
+/* ⭐ GRID LAYOUT */
+/* -------------------------------------------------- */
+
 .two-col,
 .jobform {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
-  row-gap: 0.35rem; /* tight vertical rhythm */
+  row-gap: 0.5rem;
 }
 
-/* Labels */
+/* -------------------------------------------------- */
+/* ⭐ LABELS */
+/* -------------------------------------------------- */
+
 .two-col label,
 .jobform label {
   margin-bottom: 0.1rem;
   font-weight: 500;
+  color: #1e293b;
 }
 
-/* Inputs + selects */
+/* -------------------------------------------------- */
+/* ⭐ INPUTS */
+/* -------------------------------------------------- */
+
 .two-col input,
 .two-col select,
 .jobform input,
 .jobform select {
-  padding: 0.4rem 0.5rem; /* compact input height */
-  border: 1px solid var(--brand-border);
+  padding: 0.45rem 0.55rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 4px;
-  background: var(--input-bg);
-  color: var(--text);
+  background: #fafafa;
+  color: #0f172a;
 }
 
-/* Section headers */
+/* -------------------------------------------------- */
+/* ⭐ SECTION HEADERS */
+/* -------------------------------------------------- */
+
 .section-header {
   grid-column: 1 / span 2;
-  margin-top: 1rem;        /* reduced */
-  margin-bottom: 0.15rem;  /* reduced */
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--brand-text);
+  color: #0f172a;
+
+  background: rgba(0, 0, 0, 0.03);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
 }
 
-/* Dividers */
+/* -------------------------------------------------- */
+/* ⭐ DIVIDERS */
+/* -------------------------------------------------- */
+
 .divider {
   grid-column: 1 / span 2;
   border: none;
-  border-top: 1px solid var(--brand-border);
-  margin: 0.15rem 0 0.75rem 0; /* compact */
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 0.25rem 0 0.75rem 0;
 }
 
-/* Button row */
+/* -------------------------------------------------- */
+/* ⭐ BUTTONS */
+/* -------------------------------------------------- */
+
 .addjob-buttons,
 .editjob-buttons,
 .jobform-buttons {
   grid-column: 1 / span 2;
   display: flex;
-  justify-content: center; /* center buttons */
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: 0.75rem; /* tighter */
+  margin-top: 0.75rem;
 }
 
-/* Buttons */
 button.primary {
   background: var(--brand-primary);
   color: white;
-  padding: 0.5rem 1.25rem;
+  padding: 0.55rem 1.3rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -93,20 +126,104 @@ button.primary {
 
 button.secondary {
   background: var(--brand-secondary);
-  color: var(--text);
-  padding: 0.5rem 1.25rem;
-  border: 1px solid var(--brand-border);
+  color: #0f172a;
+  padding: 0.55rem 1.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 4px;
   cursor: pointer;
 }
 
-/* Dark mode adjustments */
+/* -------------------------------------------------- */
+/* ⭐ DARK MODE — ACCENTED VERSION */
+/* -------------------------------------------------- */
+
+.dark .page {
+  background: linear-gradient(to bottom, #0b1120, #0f172a);
+}
+
 .dark .card {
-  background: var(--card-bg-dark);
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.dark .card h1 {
+  color: #f1f5f9;
+}
+
+.dark label {
+  color: #e2e8f0;
 }
 
 .dark input,
 .dark select {
-  background: var(--input-bg-dark);
-  border-color: var(--brand-border-dark);
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+}
+
+.dark input:focus,
+.dark select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+.dark .section-header {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f5f9;
+}
+
+.dark .divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dark button.primary {
+  background: var(--brand-primary-dark);
+  color: white;
+}
+
+.dark button.primary:hover {
+  background: var(--brand-primary);
+}
+
+.dark button.secondary {
+  background: #334155;
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.dark button.secondary:hover {
+  background: #475569;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ MOBILE RESPONSIVE */
+/* -------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .two-col,
+  .jobform {
+    grid-template-columns: 1fr;
+    row-gap: 0.65rem;
+  }
+
+  .section-header,
+  .divider,
+  .jobform-buttons {
+    grid-column: 1 / span 1;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  button.primary,
+  button.secondary {
+    width: 100%;
+  }
+
+  .jobform-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

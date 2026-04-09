@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
+import "./styles/layout.css";
 import HomePage from "./pages/HomePage";
 import JobsListPage from "./pages/JobsListPage";
 import EditJobPage from "./pages/EditJobPage";

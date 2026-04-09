@@ -1,0 +1,165 @@
+/* -------------------------------------------------- */
+/* ⭐ GLOBAL PAGE LAYOUT */
+/* -------------------------------------------------- */
+
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--page-bg, #f8fafc);
+}
+
+.content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ CARD CONTAINERS */
+/* -------------------------------------------------- */
+
+.card {
+  background: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+
+  /* subtle accent */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #0f172a;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ SPACING UTILITIES */
+/* -------------------------------------------------- */
+
+.section {
+  margin-top: 1.5rem;
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ GRID UTILITIES */
+/* -------------------------------------------------- */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ BUTTON HOVER + ACTIVE STATES (LIGHT MODE) */
+/* -------------------------------------------------- */
+
+button.primary {
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+button.primary:hover {
+  background: #2563eb; /* brighter blue */
+}
+
+button.primary:active {
+  background: #1d4ed8; /* deeper blue */
+  transform: scale(0.98);
+}
+
+button.secondary {
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+button.secondary:hover {
+  background: #e2e8f0; /* light slate */
+}
+
+button.secondary:active {
+  background: #cbd5e1;
+  transform: scale(0.98);
+}
+
+/* -------------------------------------------------- */
+/* ⭐ INPUT HOVER + FOCUS STATES (LIGHT MODE) */
+/* -------------------------------------------------- */
+
+input:hover,
+select:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  outline: none;
+}
+
+/* -------------------------------------------------- */
+/* ⭐ DARK MODE */
+/* -------------------------------------------------- */
+
+.dark .page {
+  background: #0b1120;
+}
+
+.dark .card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.dark .page-title {
+  color: #f1f5f9;
+}
+
+.dark input:hover,
+.dark select:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark input:focus,
+.dark select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+/* -------------------------------------------------- */
+/* ⭐ RESPONSIVE */
+/* -------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+}
