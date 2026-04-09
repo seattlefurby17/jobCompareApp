@@ -8,6 +8,9 @@ router.post("/", jobsController.createJob);
 // READ all jobs
 router.get("/", jobsController.getAllJobs);
 
+// Clear all current jobs (must be BEFORE "/:id")
+router.put("/clear-current", jobsController.clearCurrentJobs);
+
 // READ one job by ID
 router.get("/:id", jobsController.getJobById);
 
