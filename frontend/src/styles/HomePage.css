@@ -1,0 +1,11 @@
+/* Base (light mode) subtitle */
+.home-subtitle {
+  color: #475569; /* slate-600 */
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* Dark mode subtitle — brighter + more readable */
+.dark .home-subtitle {
+  color: #cbd5e1; /* slate-300 */
+}

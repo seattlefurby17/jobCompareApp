@@ -1,109 +1,168 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import "../styles/JobForm.css";
 import "../styles/ComparePage.css";
 
 export default function ComparePage() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const [jobs, setJobs] = useState([]);
-  const [job1, setJob1] = useState(null);
-  const [job2, setJob2] = useState(null);
-  const [selected1, setSelected1] = useState("");
-  const [selected2, setSelected2] = useState("");
+  const [job1, setJob1] = useState("");
+  const [job2, setJob2] = useState("");
+  const [result, setResult] = useState(null);
 
-  const location = useLocation();
+  const formatNumber = (num) =>
+    Number(num).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
 
-  // Extract job1 & job2 from URL
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const j1 = params.get("job1");
-    const j2 = params.get("job2");
-
-    if (j1) setSelected1(j1);
-    if (j2) setSelected2(j2);
-  }, [location.search]);
-
-  // Fetch all jobs
+  // Load jobs
   useEffect(() => {
     fetch("http://localhost:4000/jobs")
       .then(res => res.json())
       .then(data => setJobs(data))
-      .catch(err => console.error("Error fetching jobs:", err));
+      .catch(err => console.error("Error loading jobs:", err));
   }, []);
 
-  // Auto-load job details when selected1 or selected2 changes
+  // Hydrate from URL
   useEffect(() => {
-    if (selected1) {
-      fetch(`http://localhost:4000/jobs/${selected1}`)
-        .then(res => res.json())
-        .then(data => setJob1(data))
-        .catch(err => console.error("Error fetching job1:", err));
-    }
+    const j1 = searchParams.get("job1");
+    const j2 = searchParams.get("job2");
 
-    if (selected2) {
-      fetch(`http://localhost:4000/jobs/${selected2}`)
-        .then(res => res.json())
-        .then(data => setJob2(data))
-        .catch(err => console.error("Error fetching job2:", err));
+    if (j1) setJob1(j1);
+    if (j2) setJob2(j2);
+  }, [searchParams]);
+
+  // Auto-run compare
+  useEffect(() => {
+    if (job1 && job2) {
+      handleCompare();
     }
-  }, [selected1, selected2]);
+  }, [job1, job2]);
+
+  function handleCompare() {
+    if (!job1 || !job2) return;
+
+    fetch("http://localhost:4000/compare", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        job1_id: Number(job1),
+        job2_id: Number(job2)
+      })
+    })
+      .then(res => res.json())
+      .then(data => setResult(data))
+      .catch(err => console.error("Error comparing jobs:", err));
+  }
 
   return (
     <>
       <NavBar />
 
       <div className="page">
-        <div className="card">
-          <h1>Compare Jobs</h1>
+        <div className="card compare-container">
+          <h1 className="page-title">Compare Jobs</h1>
 
-          {/* Dropdowns remain available */}
-          <div className="compare-selectors">
-            <select
-              value={selected1}
-              onChange={(e) => setSelected1(e.target.value)}
-            >
-              <option value="">Select Job 1</option>
-              {jobs.map(job => (
-                <option key={job.id} value={job.id}>
-                  {job.title} — {job.company}
-                </option>
-              ))}
-            </select>
+          {/* Job selection */}
+          <div className="compare-select-grid">
+            <div className="form-row">
+              <label>Select Job 1</label>
+              <select value={job1} onChange={e => setJob1(e.target.value)}>
+                <option value="">Select first job</option>
+                {jobs.map(job => (
+                  <option key={job.id} value={job.id}>
+                    {job.title} — {job.company}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <select
-              value={selected2}
-              onChange={(e) => setSelected2(e.target.value)}
-            >
-              <option value="">Select Job 2</option>
-              {jobs.map(job => (
-                <option key={job.id} value={job.id}>
-                  {job.title} — {job.company}
-                </option>
-              ))}
-            </select>
+            <div className="form-row">
+              <label>Select Job 2</label>
+              <select value={job2} onChange={e => setJob2(e.target.value)}>
+                <option value="">Select second job</option>
+                {jobs.map(job => (
+                  <option key={job.id} value={job.id}>
+                    {job.title} — {job.company}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          {/* Auto-show comparison when both jobs are loaded */}
-          {job1 && job2 ? (
-            <div className="comparison-grid">
-              <div className="comparison-column">
-                <h2>{job1.title}</h2>
-                <p><strong>Company:</strong> {job1.company}</p>
-                <p><strong>Salary:</strong> {job1.salary}</p>
-                <p><strong>Location:</strong> {job1.location}</p>
-                <p><strong>Notes:</strong> {job1.notes}</p>
+          {/* Buttons */}
+          <div className="form-buttons">
+            <button
+              className="primary"
+              onClick={handleCompare}
+              disabled={!job1 || !job2}
+            >
+              Compare
+            </button>
+
+            <button
+              className="secondary"
+              onClick={() => navigate("/jobs")}
+            >
+              Cancel
+            </button>
+          </div>
+
+          {/* Results */}
+          {result && (
+            <>
+              <hr className="divider" />
+              <div className="section-header">Comparison Results</div>
+
+              <div className="winner-highlight">
+                Winner: {result.winner.title} — {result.winner.company}
               </div>
 
-              <div className="comparison-column">
-                <h2>{job2.title}</h2>
-                <p><strong>Company:</strong> {job2.company}</p>
-                <p><strong>Salary:</strong> {job2.salary}</p>
-                <p><strong>Location:</strong> {job2.location}</p>
-                <p><strong>Notes:</strong> {job2.notes}</p>
+              <div className="compare-cards">
+                <div className="compare-card">
+                  <h2>{result.job1.title} — {result.job1.company}</h2>
+                  <p><strong>Score:</strong> {formatNumber(result.job1.score)}</p>
+                </div>
+
+                <div className="compare-card">
+                  <h2>{result.job2.title} — {result.job2.company}</h2>
+                  <p><strong>Score:</strong> {formatNumber(result.job2.score)}</p>
+                </div>
               </div>
-            </div>
-          ) : (
-            <p className="muted-text">Select two jobs to compare.</p>
+
+              <h3 style={{ marginTop: "2rem" }}>Category Breakdown</h3>
+
+              <div className="category-compare-grid">
+                {[
+                  ["Salary", "salary"],
+                  ["Bonus", "bonus"],
+                  ["Stock Options", "stock_options"],
+                  ["Wellness Stipend", "wellness_stipend"],
+                  ["Life Insurance", "life_insurance"],
+                  ["Personal Dev Fund", "personal_dev_fund"],
+                  ["Cost of Living Index", "cost_of_living_index"]
+                ].map(([label, key]) => (
+                  <div className="category-compare-row" key={key}>
+                    <span>{label}</span>
+                    <span>
+                      {key === "cost_of_living_index"
+                        ? result.job1[key]
+                        : formatNumber(result.job1[key])}
+                    </span>
+                    <span>
+                      {key === "cost_of_living_index"
+                        ? result.job2[key]
+                        : formatNumber(result.job2[key])}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>

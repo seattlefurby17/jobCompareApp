@@ -1,33 +1,34 @@
 /* -------------------------------------------------- */
-/* ⭐ PAGE LAYOUT */
+/* ⭐ PAGE LAYOUT — consistent vertical height */
 /* -------------------------------------------------- */
 
 .page {
   display: flex;
   justify-content: center;
-  padding: 1.5rem 0;
+  padding: 2.5rem 0; /* increased but safe */
   background: linear-gradient(to bottom, #f8fafc, #ffffff);
+  width: 100%;
+  min-height: calc(100vh - 70px);
 }
 
 /* -------------------------------------------------- */
-/* ⭐ CARD */
+/* ⭐ CARD — consistent spacing + alignment */
 /* -------------------------------------------------- */
 
 .card {
   background: #ffffff;
-  padding: 1.25rem 1.5rem;
-  border-radius: 8px;
-
+  padding: 2.25rem 2.75rem; /* increased but safe */
+  border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .card h1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.75rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
   text-align: center;
   font-size: 1.4rem;
   font-weight: 600;
@@ -35,31 +36,33 @@
 }
 
 /* -------------------------------------------------- */
-/* ⭐ NEW GRID SYSTEM (used by Add/Edit + Settings) */
+/* ⭐ GRID SYSTEM — RESTORED OLD LOOK */
 /* -------------------------------------------------- */
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem 2rem; /* vertical | horizontal spacing */
+  grid-template-columns: 1fr 1fr; /* OLD LOOK RESTORED */
+  gap: 1rem 1.5rem;
   margin-top: 1rem;
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 160px 1fr; /* label | input */
+  grid-template-columns: 180px 1fr; /* OLD LOOK RESTORED */
   align-items: center;
   gap: 0.5rem;
 }
 
 .form-row label {
   font-weight: 600;
-  text-transform: capitalize;
+  text-align: right;
+  color: #0f172a;
 }
 
 .form-row input,
 .form-row select {
   width: 100%;
+  max-width: 350px;
   padding: 0.55rem 0.75rem;
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.18);
@@ -68,17 +71,29 @@
 }
 
 /* -------------------------------------------------- */
+/* ⭐ BENEFITS GRID — 1 column but aligned */
+/* -------------------------------------------------- */
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.benefits-grid .form-row {
+  grid-template-columns: 180px 1fr; /* keep alignment */
+}
+
+/* -------------------------------------------------- */
 /* ⭐ SECTION HEADERS */
 /* -------------------------------------------------- */
 
 .section-header {
-  grid-column: 1 / span 2;
-  margin-top: 1rem;
-  margin-bottom: 0.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
   font-size: 1.05rem;
   font-weight: 600;
   color: #0f172a;
-
   background: rgba(0, 0, 0, 0.03);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -89,10 +104,9 @@
 /* -------------------------------------------------- */
 
 .divider {
-  grid-column: 1 / span 2;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
-  margin: 0.25rem 0 0.75rem 0;
+  margin: 1rem 0;
 }
 
 /* -------------------------------------------------- */
@@ -108,7 +122,7 @@
 }
 
 button.primary {
-  background: var(--brand-primary);
+  background: #2563eb;
   color: white;
   padding: 0.55rem 1.3rem;
   border: none;
@@ -116,13 +130,21 @@ button.primary {
   cursor: pointer;
 }
 
+button.primary:hover {
+  background: #1d4ed8;
+}
+
 button.secondary {
-  background: var(--brand-secondary);
+  background: #f1f5f9;
   color: #0f172a;
   padding: 0.55rem 1.3rem;
   border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 4px;
   cursor: pointer;
+}
+
+button.secondary:hover {
+  background: #e2e8f0;
 }
 
 /* -------------------------------------------------- */
@@ -154,12 +176,6 @@ button.secondary {
   color: #f8fafc;
 }
 
-.dark input:focus,
-.dark select:focus {
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
-}
-
 .dark .section-header {
   background: rgba(255, 255, 255, 0.06);
   color: #f1f5f9;
@@ -170,12 +186,7 @@ button.secondary {
 }
 
 .dark button.primary {
-  background: var(--brand-primary-dark);
-  color: white;
-}
-
-.dark button.primary:hover {
-  background: var(--brand-primary);
+  background: #1d4ed8;
 }
 
 .dark button.secondary {
@@ -184,35 +195,33 @@ button.secondary {
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.dark button.secondary:hover {
-  background: #475569;
-}
-
 /* -------------------------------------------------- */
 /* ⭐ RESPONSIVE */
 /* -------------------------------------------------- */
 
 @media (max-width: 768px) {
+  .card {
+    padding: 1.25rem 1rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
 
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row label {
+    text-align: left;
+  }
+
   .form-buttons {
     flex-direction: column;
-    gap: 0.5rem;
   }
 
   button.primary,
   button.secondary {
     width: 100%;
   }
-}
-
-/* -------------------------------------------------- */
-/* ⭐ SETTINGS PAGE OVERRIDE */
-/* -------------------------------------------------- */
-
-.page .card .form-grid {
-  grid-template-columns: 1fr; /* one column */
-  gap: 1.25rem 2rem; /* keep spacing */
 }

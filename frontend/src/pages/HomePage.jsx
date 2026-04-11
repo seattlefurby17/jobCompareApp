@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import "./HomePage.css";
+import "../styles/HomePage.css";
 
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
       <div className="page">
         <div className="card two-col">
           <div>
-            <h1>JobCompare</h1>
+            <h1 className="page-title">JobCompare</h1>
               <p className="home-subtitle">
                 Compare job offers, adjust scoring weights, and manage your job list.
               </p>

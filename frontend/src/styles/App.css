@@ -1,4 +1,6 @@
-/* RESET */
+/* -------------------------------------------------- */
+/* GLOBAL PAGE LAYOUT */
+/* -------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +8,9 @@
   font-family: system-ui, sans-serif;
 }
 
+/* -------------------------------------------------- */
 /* BRAND PALETTE */
+/* -------------------------------------------------- */
 :root {
   --brand-primary: #2563eb;
   --brand-primary-dark: #1e4fcf;
@@ -28,26 +32,46 @@
   --brand-shadow-dark: rgba(0,0,0,0.4);
 }
 
-/* LIGHT MODE */
+/* -------------------------------------------------- */
+/* LIGHT + DARK MODE */
+/* -------------------------------------------------- */
 body {
   background: var(--brand-bg);
   color: var(--brand-text);
 }
 
-/* DARK MODE */
 body.dark {
   background: var(--brand-bg-dark);
   color: var(--brand-text-dark);
 }
 
+/* -------------------------------------------------- */
 /* PAGE WRAPPER */
+/* -------------------------------------------------- */
 .page {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
 }
 
+/* -------------------------------------------------- */
+/* PAGE TITLE */
+/* -------------------------------------------------- */
+.page-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  color: #0f172a;
+}
+
+body.dark .page-title {
+  color: var(--brand-text-dark);
+}
+
+/* -------------------------------------------------- */
 /* CARD */
+/* -------------------------------------------------- */
 .card {
   background: var(--brand-card);
   border: 1px solid var(--brand-border);
@@ -62,24 +86,17 @@ body.dark .card {
   box-shadow: 0 4px 12px var(--brand-shadow-dark);
 }
 
-/* HEADERS — GLOBAL FIX */
-h1 {
-  color: #0f172a; /* deep slate for strong contrast */
-  font-weight: 700;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-body.dark h1 {
-  color: var(--brand-text-dark);
-}
-
+/* -------------------------------------------------- */
+/* HEADINGS */
+/* -------------------------------------------------- */
 h2, h3 {
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
+/* -------------------------------------------------- */
 /* INPUTS */
+/* -------------------------------------------------- */
 input, select {
   width: 100%;
   padding: 0.5rem;
@@ -89,6 +106,18 @@ input, select {
   color: var(--brand-text);
 }
 
+input:hover,
+select:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  outline: none;
+}
+
 body.dark input,
 body.dark select {
   background: var(--brand-card-dark);
@@ -96,7 +125,20 @@ body.dark select {
   border-color: var(--brand-border-dark);
 }
 
+body.dark input:hover,
+body.dark select:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+body.dark input:focus,
+body.dark select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+/* -------------------------------------------------- */
 /* BUTTONS */
+/* -------------------------------------------------- */
 button {
   padding: 0.75rem 1rem;
   border: none;
@@ -108,19 +150,31 @@ button {
 button.primary {
   background: var(--brand-primary);
   color: white;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 button.primary:hover {
   background: var(--brand-primary-dark);
 }
 
+button.primary:active {
+  background: #1d4ed8;
+  transform: scale(0.98);
+}
+
 button.secondary {
   background: #e2e8f0;
   color: #1e293b;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 button.secondary:hover {
   background: #cbd5e1;
+}
+
+button.secondary:active {
+  background: #cbd5e1;
+  transform: scale(0.98);
 }
 
 body.dark button.secondary {
@@ -128,7 +182,9 @@ body.dark button.secondary {
   color: white;
 }
 
+/* -------------------------------------------------- */
 /* UTILITIES */
+/* -------------------------------------------------- */
 .button-stack {
   display: flex;
   flex-direction: column;
@@ -141,12 +197,50 @@ body.dark button.secondary {
   gap: 2rem;
 }
 
+.section {
+  margin-top: 1.5rem;
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* -------------------------------------------------- */
+/* RESPONSIVE */
+/* -------------------------------------------------- */
 @media (max-width: 768px) {
-  .two-col {
+  .two-col,
+  .grid-2,
+  .grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1.25rem;
   }
 }
 
+/* -------------------------------------------------- */
+/* FOOTER */
+/* -------------------------------------------------- */
 .footer {
   text-align: center;
   padding: 2rem 1rem;

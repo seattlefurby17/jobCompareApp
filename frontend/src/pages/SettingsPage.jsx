@@ -21,7 +21,7 @@ export default function SettingsPage() {
     return (
       <>
         <NavBar />
-        <div className="page">
+        <div className="page settings-page">
           <p>Loading settings...</p>
         </div>
       </>
@@ -56,12 +56,11 @@ export default function SettingsPage() {
     <>
       <NavBar />
 
-      <div className="page">
+      <div className="page settings-page">
         <div className="card">
-          <h1>Settings</h1>
+          <h1 className="page-title">Settings</h1>
           <p>Adjust the weights used when comparing jobs.</p>
 
-          {/* ⭐ Uses the same grid as Add/Edit Job */}
           <div className="form-grid">
             {Object.keys(settings).map(key =>
               key !== "id" && (
@@ -77,7 +76,6 @@ export default function SettingsPage() {
             )}
           </div>
 
-          {/* ⭐ Uses the same button layout as Add/Edit Job */}
           <div className="form-buttons">
             <button
               className="primary"

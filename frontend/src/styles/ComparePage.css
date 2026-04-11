@@ -1,107 +1,176 @@
-/* -------------------------------------------------- */
-/* ⭐ PAGE LAYOUT */
-/* -------------------------------------------------- */
+/* ============================================================
+   Compare Page — Unified with Global Design System
+   ============================================================ */
 
-.compare-selectors {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+/* Container */
+.compare-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.compare-selectors select {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,0.15);
-  background: #ffffff;
-  color: #0f172a;
-  min-width: 180px;
+/* Winner highlight */
+.winner-highlight {
+  background: rgba(37, 99, 235, 0.15); /* brand-primary softened */
+  padding: 0.85rem 1.2rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: var(--brand-text);
+  text-align: center;
 }
 
-.compare-selectors select:focus {
-  outline: 2px solid #3b82f6;
+body.dark .winner-highlight {
+  background: rgba(37, 99, 235, 0.25);
+  color: var(--brand-text-dark);
 }
 
-/* Dark mode */
-.dark .compare-selectors select {
-  background: #1e293b;
-  color: #f1f5f9;
-  border-color: rgba(255,255,255,0.15);
-}
+/* ================================
+   Side-by-Side Job Cards
+   ================================ */
 
-/* -------------------------------------------------- */
-/* ⭐ COMPARISON GRID */
-/* -------------------------------------------------- */
-
-.comparison-grid {
+.compare-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-top: 1rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.comparison-column {
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.08);
+.compare-card {
+  background: var(--brand-card);
+  border: 1px solid var(--brand-border);
   border-radius: 10px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px var(--brand-shadow);
+  min-height: 180px;
 }
 
-.comparison-column h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
+body.dark .compare-card {
+  background: var(--brand-card-dark);
+  border-color: var(--brand-border-dark);
+  box-shadow: 0 4px 12px var(--brand-shadow-dark);
+}
+
+.compare-card h2 {
   font-size: 1.2rem;
-  color: #0f172a;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  word-break: break-word;
+  color: var(--brand-text);
 }
 
-.comparison-column p {
-  margin: 0.35rem 0;
-  color: #334155;
+body.dark .compare-card h2 {
+  color: var(--brand-text-dark);
 }
 
-/* Dark mode */
-.dark .comparison-column {
-  background: #1e293b;
-  border-color: rgba(255,255,255,0.08);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+.compare-card p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: var(--brand-text);
 }
 
-.dark .comparison-column h2 {
-  color: #f1f5f9;
+body.dark .compare-card p {
+  color: var(--brand-text-dark);
 }
 
-.dark .comparison-column p {
-  color: #cbd5e1;
+/* ================================
+   Category Comparison Grid
+   ================================ */
+
+.category-compare-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  margin-top: 1.5rem;
+  border: 1px solid var(--brand-border);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-/* -------------------------------------------------- */
-/* ⭐ MUTED TEXT */
-/* -------------------------------------------------- */
-
-.muted-text {
-  text-align: center;
-  color: #64748b;
-  margin-top: 1rem;
+body.dark .category-compare-grid {
+  border-color: var(--brand-border-dark);
 }
 
-/* Dark mode */
-.dark .muted-text {
-  color: #94a3b8;
+.category-compare-row {
+  display: contents;
 }
 
-/* -------------------------------------------------- */
-/* ⭐ RESPONSIVE */
-/* -------------------------------------------------- */
+.category-compare-row span {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--brand-border);
+  display: flex;
+  align-items: center;
+  color: var(--brand-text);
+}
 
-@media (max-width: 768px) {
-  .compare-selectors {
-    flex-direction: column;
-    align-items: stretch;
-  }
+body.dark .category-compare-row span {
+  border-bottom-color: var(--brand-border-dark);
+  color: var(--brand-text-dark);
+}
 
-  .comparison-grid {
+.category-compare-row span:first-child {
+  font-weight: 600;
+  background: #f8fafc; /* light alt background */
+}
+
+body.dark .category-compare-row span:first-child {
+  background: #1e293b; /* dark alt background */
+}
+
+.category-compare-row:nth-child(even) span {
+  background: #f1f5f9;
+}
+
+body.dark .category-compare-row:nth-child(even) span {
+  background: #334155;
+}
+
+/* ================================
+   Responsive Layout
+   ================================ */
+
+@media (max-width: 700px) {
+  .compare-cards {
     grid-template-columns: 1fr;
   }
+
+  .category-compare-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-compare-row span:first-child {
+    grid-column: span 2;
+    border-bottom: none;
+    font-size: 1rem;
+    padding-top: 1rem;
+  }
+}
+
+/* ================================
+   Job Selection Fields
+   ================================ */
+
+.compare-select-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.compare-select-grid .form-row {
+  flex: 1 1 350px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.compare-select-grid select {
+  width: 100%;
+  min-width: 350px;
+  max-width: 500px;
+  white-space: nowrap;
+}
+
+.compare-select-grid select option {
+  white-space: normal;
 }

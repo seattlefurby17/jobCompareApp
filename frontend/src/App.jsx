@@ -3,10 +3,13 @@ import "./styles/App.css";
 import "./styles/layout.css";
 import HomePage from "./pages/HomePage";
 import JobsListPage from "./pages/JobsListPage";
+import ViewJobPage from "./pages/ViewJobPage";
 import EditJobPage from "./pages/EditJobPage";
 import ComparePage from "./pages/ComparePage";
 import SettingsPage from "./pages/SettingsPage";
 import AddJobPage from "./pages/AddJobPage";
+
+
 
 function App() {
   return (
@@ -14,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/jobs" element={<JobsListPage />} />
+        <Route path="/job/:id" element={<ViewJobPage />} />
         <Route path="/add" element={<AddJobPage />} />
         <Route path="/edit/:id" element={<EditJobPage />} />
         <Route path="/compare" element={<ComparePage />} />
