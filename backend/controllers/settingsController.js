@@ -16,13 +16,14 @@ exports.updateSettings = (req, res) => {
     stock_weight,
     wellness_weight,
     life_insurance_weight,
-    pdf_weight
+    pdf_weight,
+    col_weight
   } = req.body;
 
   const sql = `
     UPDATE settings
     SET salary_weight = ?, bonus_weight = ?, stock_weight = ?,
-        wellness_weight = ?, life_insurance_weight = ?, pdf_weight = ?
+        wellness_weight = ?, life_insurance_weight = ?, pdf_weight = ?, col_weight = ?
     WHERE id = 1
   `;
 
@@ -32,7 +33,8 @@ exports.updateSettings = (req, res) => {
     stock_weight,
     wellness_weight,
     life_insurance_weight,
-    pdf_weight
+    pdf_weight,
+    col_weight
   ];
 
   db.run(sql, params, function (err) {

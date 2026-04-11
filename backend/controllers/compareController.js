@@ -2,20 +2,24 @@ const db = require("../db/db");
 
 // Score calculation helper
 function calculateScore(job, settings) {
+  const colScore = job.cost_of_living_index
+    ? (1 / job.cost_of_living_index) * settings.col_weight
+    : 0;
+
   return (
     (job.salary || 0) * settings.salary_weight +
     (job.bonus || 0) * settings.bonus_weight +
     (job.stock_options || 0) * settings.stock_weight +
     (job.wellness_stipend || 0) * settings.wellness_weight +
     (job.life_insurance || 0) * settings.life_insurance_weight +
-    (job.personal_dev_fund || 0) * settings.pdf_weight
+    (job.personal_dev_fund || 0) * settings.pdf_weight +
+    colScore
   );
 }
 
 exports.compareJobs = (req, res) => {
   const { job1_id, job2_id } = req.body;
 
-  // Validate request
   if (!job1_id || !job2_id) {
     return res.status(400).json({ error: "Two job IDs required" });
   }
@@ -23,7 +27,7 @@ exports.compareJobs = (req, res) => {
   const jobSql = "SELECT * FROM jobs WHERE id = ?";
   const settingsSql = "SELECT * FROM settings LIMIT 1";
 
-  // Fetch settings first
+  // Fetch settings
   db.get(settingsSql, [], (err, settings) => {
     if (err) return res.status(500).json({ error: err.message });
 
@@ -44,15 +48,15 @@ exports.compareJobs = (req, res) => {
         job1.score = score1;
         job2.score = score2;
 
-        // Determine winner
-        const winner = score1 >= score2 ? job1.id : job2.id;
+        // Winner is the full job object
+        const winner = score1 >= score2 ? { ...job1 } : { ...job2 };
 
-        // Send clean response
         res.json({
-          winner,
-          job1,
-          job2
-        });
+  winner: { ...winner },
+  job1: { ...job1 },
+  job2: { ...job2 }
+});
+
       });
     });
   });
