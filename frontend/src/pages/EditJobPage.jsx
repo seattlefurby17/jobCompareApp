@@ -13,7 +13,12 @@ export default function EditJobPage() {
   useEffect(() => {
     fetch(`http://localhost:4000/jobs/${id}`)
       .then(res => res.json())
-      .then(data => setJob(data))
+      .then(data =>
+        setJob({
+          ...data,
+          is_current_job: Number(data.is_current_job) // normalize
+        })
+      )
       .catch(err => console.error("Error loading job:", err));
   }, [id]);
 
@@ -34,7 +39,7 @@ export default function EditJobPage() {
       .catch(err => console.error("Error updating job:", err));
   }
 
-  if (!job) return <p>Loading...</p>;
+  if (!job) return null;
 
   return (
     <>
@@ -164,6 +169,21 @@ export default function EditJobPage() {
                 />
               </div>
 
+            </div>
+
+            <hr className="divider" />
+
+            {/* CURRENT JOB */}
+            <div className="section-header">Current Job</div>
+            <div className="form-row">
+              <label>Is this your current job?</label>
+              <select
+                value={job.is_current_job}
+                onChange={(e) => handleChange("is_current_job", Number(e.target.value))}
+              >
+                <option value={0}>No</option>
+                <option value={1}>Yes</option>
+              </select>
             </div>
 
             <div className="form-buttons">

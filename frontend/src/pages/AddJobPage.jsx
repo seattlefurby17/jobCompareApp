@@ -19,7 +19,7 @@ export default function AddJobPage() {
     wellness_stipend: "",
     life_insurance: "",
     personal_dev_fund: "",
-    is_current_job: 0
+    is_current_job: 0   // MUST start as 0
   });
 
   function handleChange(field, value) {
@@ -167,6 +167,21 @@ export default function AddJobPage() {
                 />
               </div>
 
+            </div>
+
+            <hr className="divider" />
+
+            {/* CURRENT JOB */}
+            <div className="section-header">Current Job</div>
+            <div className="form-row">
+              <label>Is this your current job?</label>
+              <select
+                value={job.is_current_job}
+                onChange={(e) => handleChange("is_current_job", Number(e.target.value))}
+              >
+                <option value={0}>No</option>
+                <option value={1}>Yes</option>
+              </select>
             </div>
 
             <div className="form-buttons">
