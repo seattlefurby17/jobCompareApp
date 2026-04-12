@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -14,6 +14,11 @@ export default function ComparePage() {
   const [job2, setJob2] = useState("");
   const [result, setResult] = useState(null);
 
+  // Tracks whether we've already auto-run from URL params on first load
+  const autoRanRef = useRef(false);
+
+  const isSameJob = job1 && job2 && job1 === job2;
+
   const formatNumber = (num) =>
     Number(num).toLocaleString("en-US", {
       minimumFractionDigits: 2,
@@ -28,24 +33,29 @@ export default function ComparePage() {
       .catch(err => console.error("Error loading jobs:", err));
   }, []);
 
-  // Hydrate from URL
+  // Hydrate from URL and auto-run compare only on first load from URL
   useEffect(() => {
     const j1 = searchParams.get("job1");
     const j2 = searchParams.get("job2");
 
     if (j1) setJob1(j1);
     if (j2) setJob2(j2);
+
+    if (j1 && j2 && j1 !== j2 && !autoRanRef.current) {
+      autoRanRef.current = true;
+      fetch("http://localhost:4000/compare", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ job1_id: Number(j1), job2_id: Number(j2) })
+      })
+        .then(res => res.json())
+        .then(data => setResult(data))
+        .catch(err => console.error("Error comparing jobs:", err));
+    }
   }, [searchParams]);
 
-  // Auto-run compare
-  useEffect(() => {
-    if (job1 && job2) {
-      handleCompare();
-    }
-  }, [job1, job2]);
-
   function handleCompare() {
-    if (!job1 || !job2) return;
+    if (!job1 || !job2 || isSameJob) return;
 
     fetch("http://localhost:4000/compare", {
       method: "POST",
@@ -72,10 +82,14 @@ export default function ComparePage() {
           <div className="compare-select-grid">
             <div className="form-row">
               <label>Select Job 1</label>
-              <select value={job1} onChange={e => setJob1(e.target.value)}>
+              <select value={job1} onChange={e => { setJob1(e.target.value); setResult(null); }}>
                 <option value="">Select first job</option>
                 {jobs.map(job => (
-                  <option key={job.id} value={job.id}>
+                  <option
+                    key={job.id}
+                    value={job.id}
+                    disabled={String(job.id) === job2}
+                  >
                     {job.title} — {job.company}
                   </option>
                 ))}
@@ -84,10 +98,14 @@ export default function ComparePage() {
 
             <div className="form-row">
               <label>Select Job 2</label>
-              <select value={job2} onChange={e => setJob2(e.target.value)}>
+              <select value={job2} onChange={e => { setJob2(e.target.value); setResult(null); }}>
                 <option value="">Select second job</option>
                 {jobs.map(job => (
-                  <option key={job.id} value={job.id}>
+                  <option
+                    key={job.id}
+                    value={job.id}
+                    disabled={String(job.id) === job1}
+                  >
                     {job.title} — {job.company}
                   </option>
                 ))}
@@ -95,12 +113,19 @@ export default function ComparePage() {
             </div>
           </div>
 
+          {/* Same job warning */}
+          {isSameJob && (
+            <p className="compare-warning">
+              Please select two different jobs to compare.
+            </p>
+          )}
+
           {/* Buttons */}
           <div className="form-buttons">
             <button
               className="primary"
               onClick={handleCompare}
-              disabled={!job1 || !job2}
+              disabled={!job1 || !job2 || isSameJob}
             >
               Compare
             </button>
