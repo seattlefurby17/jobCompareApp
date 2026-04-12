@@ -52,11 +52,10 @@ exports.compareJobs = (req, res) => {
         const winner = score1 >= score2 ? { ...job1 } : { ...job2 };
 
         res.json({
-  winner: { ...winner },
-  job1: { ...job1 },
-  job2: { ...job2 }
-});
-
+          winner: { ...winner },
+          job1: { ...job1 },
+          job2: { ...job2 }
+        });
       });
     });
   });
