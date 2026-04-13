@@ -48,7 +48,6 @@ images/
 README.md
 ```
 
-
 ---
 
 ## 🧰 Tech Stack
@@ -71,6 +70,10 @@ README.md
   * Data Structure
 
     ![Domain Model Diagram](images/DataModel_Diagram.png)
+
+  * Compare Flow Sequence 
+
+    ![Compare Flow Sequence Diagram](/images/CompareFlow_Diagram.png)
 
 
 ## 📦 Setup
@@ -127,5 +130,7 @@ Finish CRUD routes
 Add scoring logic
 
 Build frontend
+
+Implement tests to verify backend logic
 
 Optional: auth + deployment
