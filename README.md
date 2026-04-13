@@ -5,10 +5,11 @@ A lightweight tool for comparing job offers using customizable scoring weights. 
 ---
 
 ## 🚀 Features
-- Add job offers with detailed compensation fields  
+- Add, edit, view, and delete job offers with detailed compensation fields  
 - Store and update comparison weight settings  
 - Auto‑creates database tables and default settings  
-- Clean REST API for CRUD operations  
+- Job comparision is auto compares from the job list and manual in compare page
+- Side-by-side comparison with category breakdown table 
 
 ---
 
@@ -17,7 +18,9 @@ A lightweight tool for comparing job offers using customizable scoring weights. 
 ```
 backend/
   controllers/
+    compareControler.js
     jobsController.js
+    settingController.js
   db/
     db.js
     init.js
@@ -27,9 +30,15 @@ backend/
     jobs.js
     settings.js
   server.js
+  test/
+    controllers/
+    routes/
+
 
 frontend/
-  (coming soon)
+  src/
+    pages/
+    styles/
 
 images/
   JobCompare_UML.png
@@ -43,19 +52,23 @@ README.md
 ---
 
 ## 🧰 Tech Stack
-- Node.js + Express  
-- SQLite  
-- Thunder Client / Postman  
-- Git + GitHub  
+- Backend: Node.js + Express  
+- Frontend: React, Reactrouter, Vite 
+- Databse: SQLite 
+- Testing: Jest, Supertest 
+- Dev Tools: Thunder Client, Git + GitHub  
 
 ---
 
 ## 🏗️ Architecture Diagram
-    * Simplified Backend Architecture
+  * Full app architecture
+    ![JobCompare App](images/jobcompare_architecture.png)
+
+  * Simplified Backend Architecture
 
     ![Backend Architecture Diagram](images/BackendArchitecture_Diagram.png)
 
-    * Data Structure
+  * Data Structure
 
     ![Domain Model Diagram](images/DataModel_Diagram.png)
 
@@ -73,7 +86,7 @@ Server runs at: http://localhost:4000
 ## 🔌 API Endpoints
 POST /jobs — create a job
 
-GET /jobs — list jobs (coming soon)
+GET /jobs — list jobs 
 
 GET /settings — get weight settings (coming soon)
 
