@@ -30,24 +30,29 @@ backend/
     jobs.js
     settings.js
   server.js
+  package.json
   test/
     controllers/
+      jobController.test.js...
     routes/
-
+      job.integration.test.js
 
 frontend/
   src/
+    component/
+      Navbar.jxs...
     pages/
+      Homepage.jxs...
     styles/
+      Homepage.css...
 
 images/
   JobCompare_UML.png
-  DataModel_Diagram.png
+  DataModel_Diagram.png...
 
 .gitignore
 README.md
 ```
-
 ---
 
 ## 🧰 Tech Stack
@@ -60,8 +65,9 @@ README.md
 ---
 
 ## 🏗️ Architecture Diagram
-  * Full app architecture
-    ![JobCompare App](images/jobcompare_architecture.png)
+  * Full Stack Application Architecture
+
+    ![JobCompare App](images/JobCompareArchitecture_Diagram.png)
 
   * Simplified Backend Architecture
 
@@ -89,11 +95,19 @@ Server runs at: http://localhost:4000
 ## 🔌 API Endpoints
 POST /jobs — create a job
 
-GET /jobs — list jobs 
+GET /jobs — list all jobs 
 
-GET /settings — get weight settings (coming soon)
+GET /jobs/:id - retrieve a single job by ID
 
-PUT /settings — update settings (coming soon)
+GET /settings — get weight settings 
+
+PUT	PUT /jobs/:id	- update a job offer
+
+PUT /settings — update settings 
+
+DELETE	DELETE /jobs/:id	- delete a job offer
+
+POST	POST /compare	- compare two jobs and return weighted scores
 
 ## 🗄 Database
 On first run, the backend:
@@ -111,7 +125,7 @@ Stale Thunder Client payload that continued sending outdated request bodies
 
 SQLite path mismatch where the backend was reading from a different database file than intended
 
-These helped refine my understanding of asynchronous requests, routing, and end‑to‑end debugging.
+These helped refine my understanding of routing and end‑to‑end debugging.
 
 ## 🛠 Workflow
 `main` holds stable code
