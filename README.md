@@ -1,6 +1,6 @@
 # JobCompare App
 
-A lightweight tool for comparing job offers using customizable scoring weights. Built with **Node.js**, **Express**, and **SQLite** for fast, simple local development.
+A lightweight tool for comparing job offers using customizable scoring weights. Built with **React**, **Node.js**, **Express**, and **SQLite** for fast, simple local development.
 
 ---
 
@@ -147,4 +147,4 @@ Build frontend
 
 Implement tests to verify backend logic
 
-Optional: auth + deployment
+Optional: auth + deployment + CI/CD

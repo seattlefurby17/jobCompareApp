@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/NavBar.css";
 
-
 export default function NavBar() {
   function toggleDarkMode() {
     document.body.classList.toggle("dark");

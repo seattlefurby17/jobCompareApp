@@ -3,7 +3,6 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import "../styles/HomePage.css";
 
-
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ export default function HomePage() {
               Compare Jobs
             </button>
 
-            <button className="secondary" onClick={() => navigate("/settings")}>
+            <button className="primary" onClick={() => navigate("/settings")}>
               Settings
             </button>
           </div>

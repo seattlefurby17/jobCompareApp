@@ -39,7 +39,6 @@ exports.createJob = (req, res) => {
   }
 };
 
-
 // READ ALL JOBS
 exports.getAllJobs = (req, res) => {
   db.all("SELECT * FROM jobs", [], (err, rows) => {
