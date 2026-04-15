@@ -9,8 +9,6 @@ import ComparePage from "./pages/ComparePage";
 import SettingsPage from "./pages/SettingsPage";
 import AddJobPage from "./pages/AddJobPage";
 
-
-
 function App() {
   return (
     <BrowserRouter>
