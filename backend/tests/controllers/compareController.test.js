@@ -1,13 +1,13 @@
 const { compareJobs } = require("../../controllers/compareController");
 
-// ─── Mock the db module ───────────────────────────────────────────────────────
+// Mock the db 
 jest.mock("../../db/db", () => ({
   get: jest.fn(),
 }));
 
 const db = require("../../db/db");
 
-// ─── Shared fixtures ──────────────────────────────────────────────────────────
+// Shared settings
 const defaultSettings = {
   salary_weight: 1,
   bonus_weight: 1,
@@ -60,7 +60,7 @@ function makeReqRes(body = {}) {
   return { req, res };
 }
 
-// ─── Unit tests: calculateScore (tested indirectly via compareJobs) ───────────
+// Unit tests: calculateScore 
 describe("calculateScore (via compareJobs)", () => {
   beforeEach(() => jest.clearAllMocks());
 
@@ -164,7 +164,7 @@ describe("calculateScore (via compareJobs)", () => {
   });
 });
 
-// ─── Unit tests: input validation ────────────────────────────────────────────
+// Unit tests: input validation
 describe("compareJobs — input validation", () => {
   beforeEach(() => jest.clearAllMocks());
 
@@ -188,7 +188,7 @@ describe("compareJobs — input validation", () => {
   });
 });
 
-// ─── Unit tests: database error paths ────────────────────────────────────────
+// Unit tests: database error paths
 describe("compareJobs — database errors", () => {
   beforeEach(() => jest.clearAllMocks());
 

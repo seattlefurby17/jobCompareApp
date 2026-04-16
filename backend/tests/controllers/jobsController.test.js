@@ -16,7 +16,7 @@ jest.mock("../../db/init", () => {});
 
 const db = require("../../db/db");
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// Helpers 
 function makeRes() {
   const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
   return res;
@@ -39,7 +39,7 @@ const baseJob = {
 
 beforeEach(() => jest.clearAllMocks());
 
-// ─── createJob ────────────────────────────────────────────────────────────────
+// createJob 
 describe("createJob", () => {
   test("inserts job and returns lastID when is_current_job = 0", () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -103,7 +103,7 @@ describe("createJob", () => {
   });
 });
 
-// ─── getAllJobs ───────────────────────────────────────────────────────────────
+// getAllJobs 
 describe("getAllJobs", () => {
   test("returns all rows on success", () => {
     const rows = [{ id: 1, ...baseJob }, { id: 2, ...baseJob }];
@@ -142,7 +142,7 @@ describe("getAllJobs", () => {
   });
 });
 
-// ─── getJobById ───────────────────────────────────────────────────────────────
+// getJobById 
 describe("getJobById", () => {
   test("returns job when found", () => {
     const row = { id: 1, ...baseJob };
@@ -182,7 +182,7 @@ describe("getJobById", () => {
   });
 });
 
-// ─── updateJob ────────────────────────────────────────────────────────────────
+// updateJob 
 describe("updateJob", () => {
   test("updates job and returns changes count", () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -255,7 +255,7 @@ describe("updateJob", () => {
   });
 });
 
-// ─── deleteJob ────────────────────────────────────────────────────────────────
+// deleteJob 
 describe("deleteJob", () => {
   test("deletes job and returns changes count", () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -298,7 +298,7 @@ describe("deleteJob", () => {
   });
 });
 
-// ─── clearCurrentJobs (route handler) ────────────────────────────────────────
+// clearCurrentJobs (route handler) 
 describe("clearCurrentJobs (route handler)", () => {
   test("returns success message on clear", () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {

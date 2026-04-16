@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use("/jobs", require("../../routes/jobs"));
 
-// ─── Fixtures ─────────────────────────────────────────────────────────────────
+// Shared settings
 const baseJob = {
   title: "Software Engineer",
   company: "Acme",
@@ -32,7 +32,7 @@ const baseJob = {
 
 beforeEach(() => jest.clearAllMocks());
 
-// ─── POST /jobs ───────────────────────────────────────────────────────────────
+// POST /jobs 
 describe("POST /jobs", () => {
   test("201-ish: creates a job and returns jobId", async () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -76,7 +76,7 @@ describe("POST /jobs", () => {
   });
 });
 
-// ─── GET /jobs ────────────────────────────────────────────────────────────────
+// GET /jobs 
 describe("GET /jobs", () => {
   test("returns array of jobs", async () => {
     const rows = [{ id: 1, ...baseJob }, { id: 2, ...baseJob, title: "PM" }];
@@ -109,7 +109,7 @@ describe("GET /jobs", () => {
   });
 });
 
-// ─── GET /jobs/:id ────────────────────────────────────────────────────────────
+// GET /jobs/:id 
 describe("GET /jobs/:id", () => {
   test("returns job when found", async () => {
     const row = { id: 5, ...baseJob };
@@ -141,7 +141,7 @@ describe("GET /jobs/:id", () => {
   });
 });
 
-// ─── PUT /jobs/:id ────────────────────────────────────────────────────────────
+// PUT /jobs/:id 
 describe("PUT /jobs/:id", () => {
   test("updates and returns changes count", async () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -194,7 +194,7 @@ describe("PUT /jobs/:id", () => {
   });
 });
 
-// ─── PUT /jobs/clear-current ──────────────────────────────────────────────────
+// PUT /jobs/clear-current 
 describe("PUT /jobs/clear-current", () => {
   test("clears all current jobs and returns message", async () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {
@@ -218,7 +218,7 @@ describe("PUT /jobs/clear-current", () => {
   });
 });
 
-// ─── DELETE /jobs/:id ─────────────────────────────────────────────────────────
+// DELETE /jobs/:id 
 describe("DELETE /jobs/:id", () => {
   test("deletes job and returns deleted count", async () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {

@@ -1,18 +1,18 @@
 const request = require("supertest");
 const express = require("express");
 
-// ─── Mock the db module before requiring any routes ───────────────────────────
+// Mock the db module before requiring any routes
 jest.mock("../../db/db", () => ({ get: jest.fn(), run: jest.fn() }));
 jest.mock("../../db/init", () => {}); // skip table creation
 
 const db = require("../../db/db");
 
-// ─── Build a minimal Express app (mirrors server.js) ─────────────────────────
+// Build a minimal Express app (mirrors server.js) 
 const app = express();
 app.use(express.json());
 app.use("/compare", require("../../routes/compare"));
 
-// ─── Fixtures ─────────────────────────────────────────────────────────────────
+// Shared settings
 const settings = {
   salary_weight: 1,
   bonus_weight: 1,
@@ -54,11 +54,11 @@ function mockDbSequence(s, j1, j2) {
     .mockImplementationOnce((sql, params, cb) => cb(null, j2));
 }
 
-// ─── Tests ────────────────────────────────────────────────────────────────────
+// Tests
 describe("POST /compare — integration", () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test("200 with winner, job1, job2 for valid IDs", async () => {
+  test("returns winner and job data for valid IDs", async () => {
     mockDbSequence(settings, jobA, jobB);
 
     const res = await request(app)
@@ -71,7 +71,7 @@ describe("POST /compare — integration", () => {
     expect(res.body).toHaveProperty("job2");
   });
 
-  test("winner has a numeric score", async () => {
+  test("returns a numeric score for the winner", async () => {
     mockDbSequence(settings, jobA, jobB);
 
     const res = await request(app)

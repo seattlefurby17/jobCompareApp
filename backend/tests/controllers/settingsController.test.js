@@ -22,7 +22,7 @@ const defaultSettings = {
 
 beforeEach(() => jest.clearAllMocks());
 
-// ─── getSettings ──────────────────────────────────────────────────────────────
+// getSettings 
 describe("getSettings", () => {
   test("returns the settings row", () => {
     db.get.mockImplementationOnce((sql, params, cb) => cb(null, defaultSettings));
@@ -55,7 +55,7 @@ describe("getSettings", () => {
   });
 });
 
-// ─── updateSettings ───────────────────────────────────────────────────────────
+// updateSettings 
 describe("updateSettings", () => {
   test("updates settings and returns changes count", () => {
     db.run.mockImplementationOnce(function (sql, params, cb) {

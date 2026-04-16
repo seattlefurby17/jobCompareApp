@@ -93,7 +93,6 @@ exports.updateJob = (req, res) => {
   }
 };
 
-
 // DELETE JOB
 exports.deleteJob = (req, res) => {
   db.run("DELETE FROM jobs WHERE id = ?", [req.params.id], function (err) {
