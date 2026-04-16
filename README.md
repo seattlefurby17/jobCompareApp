@@ -56,8 +56,8 @@ README.md
 ---
 
 ## 🧰 Tech Stack
-- Backend: Node.js + Express  
-- Frontend: React, Reactrouter, Vite 
+- Frontend: React, Reactrouter, Vite  
+- Backend: Node.js + Express 
 - Databse: SQLite 
 - Testing: Jest, Supertest 
 - Dev Tools: Thunder Client, Git + GitHub  
@@ -67,19 +67,19 @@ README.md
 ## 🏗️ Architecture Diagram
   * Full Stack Application Architecture
 
-    ![JobCompare App](images/JobCompareArchitecture_Diagram.png)
+  ![JobCompare App](images/JobCompareArchitecture_Diagram.png)
 
   * Simplified Backend Architecture
 
-    ![Backend Architecture Diagram](images/BackendArchitecture_Diagram.png)
+  ![Backend Architecture Diagram](images/BackendArchitecture_Diagram.png)
 
   * Data Structure
 
-    ![Domain Model Diagram](images/DataModel_Diagram.png)
+  ![Domain Model Diagram](images/DataModel_Diagram.png)
 
   * Compare Flow Sequence 
 
-    ![Compare Flow Sequence Diagram](/images/CompareFlow_Diagram.png)
+  ![Compare Flow Sequence Diagram](/images/CompareFlow_Diagram.png)
 
 
 ## 📦 Setup
@@ -119,13 +119,15 @@ Inserts default comparison settings
 SQLite file: `backend/db/jobcompare.db`
 
 ## 🐞 Debugging Notes (Development Learnings)
-During development, I resolved two subtle backend issues:
+During development, I encountered and resolved three subtle issues:
 
-Stale Thunder Client payload that continued sending outdated request bodies
+1. Stale Thunder Client payload sending outdated request bodies to the backend
 
-SQLite path mismatch where the backend was reading from a different database file than intended
+2. SQLite path mismatch, where the backend was reading from a different database file than expected
 
-These helped refine my understanding of routing and end‑to‑end debugging.
+3. Stale Node process running an older version of the server, preventing new code changes from taking effect
+
+These issues helped refine my understanding of routing, data flow, and end-to-end debugging.
 
 ## 🛠 Workflow
 `main` holds stable code
